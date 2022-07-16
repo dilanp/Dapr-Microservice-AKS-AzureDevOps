@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersApi", "OrdersApi\OrdersApi.csproj", "{4F9CA6E0-880C-443F-B9EF-864ED69B2A60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLib", "SharedLib\SharedLib.csproj", "{55BFD942-6AC3-4CE7-B531-CBB9A704A820}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLib", "SharedLib\SharedLib.csproj", "{55BFD942-6AC3-4CE7-B531-CBB9A704A820}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApi", "InventoryApi\InventoryApi.csproj", "{78CF5735-AA49-4F10-B396-57D393C75D91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{55BFD942-6AC3-4CE7-B531-CBB9A704A820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55BFD942-6AC3-4CE7-B531-CBB9A704A820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55BFD942-6AC3-4CE7-B531-CBB9A704A820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78CF5735-AA49-4F10-B396-57D393C75D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78CF5735-AA49-4F10-B396-57D393C75D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78CF5735-AA49-4F10-B396-57D393C75D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78CF5735-AA49-4F10-B396-57D393C75D91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
