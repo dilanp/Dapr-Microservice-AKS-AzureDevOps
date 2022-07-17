@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "b4c7a12f-7cab-41f4-b712-88dc940873c3",
+		"name": "DaprWithAKS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7498555"
+	},
+	"item": [
+		{
+			"name": "Order Api - Sidecar POST request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerCode\": \"code-135\",\r\n    \"items\": [\r\n        {\r\n            \"itemCode\": \"Shoes111\",\r\n            \"quantity\": 5\r\n        },\r\n        {\r\n            \"itemCode\": \"Jacket222\",\r\n            \"quantity\": 20\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5010/v1.0/invoke/order-service/method/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5010",
+					"path": [
+						"v1.0",
+						"invoke",
+						"order-service",
+						"method",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order Api - Get order state",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5010/v1.0/state/orderstore/36a81193-e40c-4590-be9b-c7430be720d7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5010",
+					"path": [
+						"v1.0",
+						"state",
+						"orderstore",
+						"36a81193-e40c-4590-be9b-c7430be720d7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inventory Api - Get inventory state",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5020/v1.0/state/inventorystore/36a81193-e40c-4590-be9b-c7430be720d7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5020",
+					"path": [
+						"v1.0",
+						"state",
+						"inventorystore",
+						"36a81193-e40c-4590-be9b-c7430be720d7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

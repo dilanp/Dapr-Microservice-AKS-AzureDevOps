@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Dapr;
@@ -15,9 +16,9 @@ namespace InventoryApi.Controllers
     [ApiController]
     public class InventoryController : ControllerBase
     {
-        private const string PubSub = "messagebus";
-        private const string InventoryStoreName = "inventorystore";
-        private const string InventoryItemStoreName = "inventoryitemstore";
+        private const string PubSub = "messagebus"; // The name specified in pubsub.yaml file.
+        private const string InventoryStoreName = "inventorystore"; // The name specified in inventorystore-redis.yaml
+        private const string InventoryItemStoreName = "inventoryitemstore"; // The name specified in inventoryitemstore-redis.yaml
 
         private readonly ILogger<InventoryController> _logger;
 
@@ -29,7 +30,7 @@ namespace InventoryApi.Controllers
         // Subscribes to the topic - OrderCreatedTopicName
         [HttpPost(CommonPubSubTopics.OrderCreatedTopicName)]
         [Topic(PubSub, CommonPubSubTopics.OrderCreatedTopicName)]
-        public async Task<IActionResult> InventoryAdjustment(Order order, [FromServices] DaprClient daprClient)
+        public async Task<ActionResult> InventoryAdjustment(Order order, [FromServices] DaprClient daprClient)
         {
             // Check if this order already exists in the state store
             var inventoryState = await daprClient
@@ -44,7 +45,7 @@ namespace InventoryApi.Controllers
             };
 
             // Iterate over the order items and get their code and quantity.
-            foreach (var item in order.Items)
+            foreach (var item in order.Items.ToList())
             {
                 var sku = item.ItemCode;
                 var quantity = item.Quantity;

@@ -7,7 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrdersApi", "OrdersApi\Orde
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLib", "SharedLib\SharedLib.csproj", "{55BFD942-6AC3-4CE7-B531-CBB9A704A820}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryApi", "InventoryApi\InventoryApi.csproj", "{78CF5735-AA49-4F10-B396-57D393C75D91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryApi", "InventoryApi\InventoryApi.csproj", "{78CF5735-AA49-4F10-B396-57D393C75D91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{203BA6C2-592A-4575-979E-72D005D28116}"
+	ProjectSection(SolutionItems) = preProject
+		DaprWithAKS.postman_collection.json = DaprWithAKS.postman_collection.json
+		launch.ps1 = launch.ps1
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

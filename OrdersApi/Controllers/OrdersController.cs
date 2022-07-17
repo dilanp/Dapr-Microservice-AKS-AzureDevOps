@@ -13,8 +13,8 @@ namespace OrdersApi.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private const string PubSub = "messagebus";
-        private const string StoreName = "orderstore";
+        private const string PubSub = "messagebus"; // The name specified in pubsub.yaml file.
+        private const string StoreName = "orderstore"; // The name specified in orderstore-redis.yaml
 
         private readonly ILogger<OrdersController> _logger;
 
