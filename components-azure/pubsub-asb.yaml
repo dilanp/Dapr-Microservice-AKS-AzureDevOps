@@ -1,0 +1,14 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: messagebus
+  namespace: default
+spec:
+  type: pubsub.azure.servicebus
+  version: v1
+  metadata:
+  - name: connectionString
+    value: Endpoint=sb://daprservicebus01.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=1YiRJIDVSwQ5MGkJWO1HniE6omIPnLYaE/JD1y76kow=
+scopes:
+- order-service
+- inventory-service
