@@ -50,24 +50,24 @@ Dapr Components
 Running Locally
 ===============
 - Compose the launch.ps1 file at the root of the solution folder to start 2 services by adding following 2 commands.
-	- Start-Process powershell.exe -argument '-command dapr run --app-id "order-service" --app-port "5001" --dapr-grpc-port "50010" --dapr-http-port "5010" --components-path "./components" -- dotnet run --project "./OrdersApi/OrdersApi.csproj" --urls="http://+:5001"'
-	- Start-Process powershell.exe -argument '-command dapr run --app-id "order-service" --app-port "5002" --dapr-grpc-port "50020" --dapr-http-port "5020" --components-path "./components" -- dotnet run --project "./InventoryApi/InventoryApi.csproj" --urls="http://+:5002"'
-	- Run the powershell script  (as admin) at the solution root => ".\launch.ps1"
-	- "app-id" is important for service discovery.
-	- "app-port" should be used to directly access apis without Dapr sidecars.
-	- "dapr-http-port" should be used to access apis through Dapr sidecars.
-	- "dapr-grpc-port" is the one Dapr sidecars use internally.
-	- Use the Postman collection to send an order and check the state store contents. Use Redis interactive commands too...
+  - Start-Process powershell.exe -argument '-command dapr run --app-id "order-service" --app-port "5001" --dapr-grpc-port "50010" --dapr-http-port "5010" --components-path "./components" -- dotnet run --project "./OrdersApi/OrdersApi.csproj" --urls="http://+:5001"'
+  - Start-Process powershell.exe -argument '-command dapr run --app-id "order-service" --app-port "5002" --dapr-grpc-port "50020" --dapr-http-port "5020" --components-path "./components" -- dotnet run --project "./InventoryApi/InventoryApi.csproj" --urls="http://+:5002"'
+  - Run the powershell script  (as admin) at the solution root => ".\launch.ps1"
+  - "app-id" is important for service discovery.
+  - "app-port" should be used to directly access apis without Dapr sidecars.
+  - "dapr-http-port" should be used to access apis through Dapr sidecars.
+  - "dapr-grpc-port" is the one Dapr sidecars use internally.
+  - Use the Postman collection to send an order and check the state store contents. Use Redis interactive commands too...
 	
 Local Interactive Commands
 ==========================
 - Run the following command to interactively connect to redis terminal. Make sure dapr_redis is running in Docker Desktop.
-	- docker run --rm -it --link dapr_redis redis redis-cli -h dapr_redis
+  - docker run --rm -it --link dapr_redis redis redis-cli -h dapr_redis
 - Redis commands 
-	- 'keys *' - Get all keys.
-	- 'hget key data' - Get values by the key.
-	- 'del key' - Delete orderList by the key (and values).
-	- 'flushall' - Delete everything.
+  - 'keys *' - Get all keys.
+  - 'hget key data' - Get values by the key.
+  - 'del key' - Delete orderList by the key (and values).
+  - 'flushall' - Delete everything.
 	
 Azure Resources
 ===============
@@ -92,17 +92,17 @@ Dapr Components for Azure
 - Copy over all yaml config files from "components" folder.
 - Rename file to indicate that they use cosmos and asb (Azure Service Bus).
 - Update all 3 state store related yaml config files to indicate.
-	- file names ends with "-cosmos".
-	- type: state.azure.cosmosdb
-	- metadata section should reflect values obtained from the Keys section of CosmosDb.
+  - file names ends with "-cosmos".
+  - type: state.azure.cosmosdb
+  - metadata section should reflect values obtained from the Keys section of CosmosDb.
 - Update the pubsub.yaml file to indicate.
-	- file names ends with "-asb".
-	- type: pubsub.azure.servicebus.
-	- metadata section should reflect the Primary Connection String from Azure.
+  - file names ends with "-asb".
+  - type: pubsub.azure.servicebus.
+  - metadata section should reflect the Primary Connection String from Azure.
 - Create "binding-eh.yaml" file inside the "components-azure" folder and specify settings.
-	- name: stockrefill
-	- type: binding.azure.eventhubs
-	- metadata section should reflect values obtained from Azure Event Hub and Storage Account.
+  - name: stockrefill
+  - type: binding.azure.eventhubs
+  - metadata section should reflect values obtained from Azure Event Hub and Storage Account.
 	
 Run Locally with Azure Resources
 ================================
@@ -116,3 +116,31 @@ Supplier
 - Add Azure.Messaging.EventHubs NuGet package (v5.7.1).
 - Code the Main() method.
 - Manually run 'dotnet run' command inside the Supplier project folder and make sure InventoryController.Refill() method works without errors.
+
+Setup Kubernetes Cluster
+========================
+- Open a Azure CLI session and Login to Azure.
+  - az login
+- Set the correct subscription.
+  - az account set --subscription 6f6895a4-64d7-483f-84e1-e37338558202
+- Create the K8s cluster.
+  - az aks create --resource-group ffdapr.rg --name daprk8saksff --node-count 2 --node-vm-size Standard_D2s_v3 --enable-addons monitoring --vm-set-type VirtualMachineScaleSets --generate-ssh-keys
+- Install kubectl CLI.
+  - sudo az aks install-cli
+- Get AKS credentials and merge it to the local config.
+  - az aks get-credentials --name daprk8saksff --resource-group ffdapr.rg
+- Check the nodes in the cluster.
+  - kubectl get nodes
+
+Setup Dapr on K8s cluster
+==========================
+- Setup Dapr on K8s.
+  - dapr init -k
+- Get the status of Dapr on K8s.
+  - dapr status -k
+  - kubectl get pods -n dapr-system -w
+- Get all Dapr services on K8s.
+  - kubectl get svc -n dapr-system -w
+- See the Dapr Dashboard on K8s.
+  - dapr dashboard -k
+
