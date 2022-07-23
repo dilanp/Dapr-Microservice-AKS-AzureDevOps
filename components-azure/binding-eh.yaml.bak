@@ -1,0 +1,19 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: stockrefill
+  namespace: default
+spec:
+  type: binding.azure.eventhubs
+  version: v1
+  metadata:
+  - name: connectionString
+    value: Endpoint=sb://daprbindingeventhub01.servicebus.windows.net/;SharedAccessKeyName=sendlisten;SharedAccessKey=imXKNeIintq4tDaUxy333T3FqmB4xDsp2eN8NYcVwNY=;EntityPath=stockrefill
+  - name: consumerGroup
+    value: $default
+  - name: storageAccountName
+    value: daprbindingstoreacc01
+  - name: storageAccountKey
+    value: Wjlc1NYIYU3CysQOk+LEWGqqWKDZwxa+/FAW+BSvxtpsxKMr6kVFBk97yjllzlcR6U4DFEIOxRXP+AStb00PJw==
+  - name: storageContainerName
+    value: "inputbinding"

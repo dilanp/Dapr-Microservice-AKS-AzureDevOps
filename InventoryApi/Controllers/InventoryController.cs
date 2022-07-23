@@ -111,14 +111,14 @@ namespace InventoryApi.Controllers
             return result;
         }
 
-        [HttpPost("/stockRefill")]
+        [HttpPost("/stockrefill")] // Matches the name in binding-eh.yaml file and Event Hub name in Azure.
         public async Task<ActionResult> Refill([FromServices] DaprClient daprClient)
         {
             using (var reader = new System.IO.StreamReader(Request.Body))
             {
                 var body = await reader.ReadToEndAsync();
                 var item = JsonSerializer.Deserialize<dynamic>(body);
-                var sku = item.GetProperty("SKU").GetString();
+                var sku = item.GetProperty("sku").GetString();
                 var quantity = item.GetProperty("Quantity").GetInt32();
                 var itemState = await daprClient.GetStateEntryAsync<InventoryItemState>(InventoryItemStoreName, sku);
                 itemState.Value ??= new InventoryItemState

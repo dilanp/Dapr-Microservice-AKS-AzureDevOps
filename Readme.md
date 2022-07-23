@@ -4,6 +4,7 @@
 - Add ASP.NET Core Web Api called "OrdersApi" (DotNet 5).
 - Add a class library called "SharedLib" (DotNet 5).
 - Add ASP.NET Core Web Api called "InventoryApi" (DotNet 5).
+- Add Console Application called "Supplier" (DotNet 5).
 
 OrdersApi
 =========
@@ -79,6 +80,11 @@ Azure Resources
 - Go to Shared access policies section of Service Bus and get - Primary Key and Primary Connection String.
 - Create a new queue called "daprcoursequeue" in Azure Service Bus.
 - Create an Event Hub (Basic Tier) Namespace - "daprbindingeventhub01".
+- Create a new Event Hub there - "stockrefill".
+- Add a Shared Access Policy with Send & Listen rights - "sendlisten".
+- Select newly created policy and get - Primary key and Connection string–primary key.
+- Create a Standard, LRS Storage Account - "daprbindingstoreacc01".
+- Select Access keys in newly created storage account and get - Key and Connection string for key 1.
 
 Dapr Components for Azure
 =========================
@@ -93,9 +99,20 @@ Dapr Components for Azure
 	- file names ends with "-asb".
 	- type: pubsub.azure.servicebus.
 	- metadata section should reflect the Primary Connection String from Azure.
-
+- Create "binding-eh.yaml" file inside the "components-azure" folder and specify settings.
+	- name: stockrefill
+	- type: binding.azure.eventhubs
+	- metadata section should reflect values obtained from Azure Event Hub and Storage Account.
+	
 Run Locally with Azure Resources
 ================================
 - Duplicate the launch.ps1 file at the root of the solution folder and name it launch-azure.ps1
 - Update the components path to use "components-azure" folder where we point to Azure resources.
 - Run the powershell script (as admin) at the solution root => ".\launch-azure.ps1"
+
+Supplier
+========
+- Click on the project in VisualStudio and change the "TargetFramework" to net6.0 in the .csproj file.
+- Add Azure.Messaging.EventHubs NuGet package (v5.7.1).
+- Code the Main() method.
+- Manually run 'dotnet run' command inside the Supplier project folder and make sure InventoryController.Refill() method works without errors.
