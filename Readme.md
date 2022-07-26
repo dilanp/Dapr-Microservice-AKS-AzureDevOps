@@ -148,4 +148,6 @@ Dockerize the Apps
 ==================
 - Right-click on OrdersApi project "Add > Docker Support" to add the Dockerfile (use Linux containers).
 - Right-click on InventoryApi project "Add > Docker Support" to add the Dockerfile (use Linux containers).
-- 
+- Move to the root solution folder in PowerShell and run the following commands to create Docker images.
+  - docker build . -t daprorderservice:latest -f OrdersApi/Dockerfile
+  - docker build . -t daprinventoryservice:latest -f InventoryApi/Dockerfile
