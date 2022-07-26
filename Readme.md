@@ -167,3 +167,21 @@ Push Images to ACR
   - docker push daprk8sscrff.azurecr.io/daprinventoryservice:latest
 - Make sure both images are available in Azure ACR Repository.
 
+Deploy to K8s
+=============
+- Connect K8s cluster with the ACR by running the following command.
+  - az aks update --name daprk8saksff --resource-group ffdapr.rg --attach-acr daprk8sscrff
+- Create a folder called "deploy" at the root solution folder.
+- Add the "microservice-order.yaml" file there and compose K8s Deployment and Service specs for order service.
+- Add the "microservice-inventory.yaml" file there and compose K8s Deployment and Service specs for inventory service.
+- Create a file named "component-pubsub-asb.yaml" there and copy content from "components-azure/pubsub-asb.yaml" file.
+- Create a file named "component-binding-eh.yaml" there and copy content from "components-azure/binding-eh.yaml" file.
+- Create a file named "component-orderstore-cosmos.yaml" there and copy content from "components-azure/orderstore-cosmos.yaml" file.
+- Create a file named "component-inventorystore-cosmos.yaml" there and copy content from "components-azure/inventorystore-cosmos.yaml" file.
+- Create a file named "component-inventoryitemstore-cosmos.yaml" there and copy content from "components-azure/inventoryitemstore-cosmos.yaml" file.
+- Now, add a deploy-solution.ps1 PowerShell file and compose all 7 "kubectl apply" commands there.
+- Move into the root solution folder and run the PowerShell file to deploy all components to AKS.
+  - Windows => ".\deploy\deploy-solution.ps1"
+  - Mac/Linux => "pwsh ./deploy/deploy-solution.ps1"
+- Make sure deployment succeeds. Verify components by launching the Dapr Dashboard on K8s.
+  - dapr dashboard -k

@@ -1,7 +1,7 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: inventoryitemstore
+  name: inventorystore
 spec:
   type: state.azure.cosmosdb
   version: v1
@@ -13,6 +13,6 @@ spec:
   - name: database
     value: csstatedb
   - name: collection
-    value: inventoryitemstate
+    value: inventorystate
 scopes:
 - inventory-service

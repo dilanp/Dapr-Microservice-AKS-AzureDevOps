@@ -4,6 +4,7 @@ metadata:
   name: inventorystore
 spec:
   type: state.azure.cosmosdb
+  version: v1
   metadata:
   - name: url
     value: https://daprstatecosmos01.documents.azure.com:443/
