@@ -185,3 +185,17 @@ Deploy to K8s
   - Mac/Linux => "pwsh ./deploy/deploy-solution.ps1"
 - Make sure deployment succeeds. Verify components by launching the Dapr Dashboard on K8s.
   - dapr dashboard -k
+
+Setup K8s Ingress Controller
+============================
+- Install Helm locally.
+- Add a new PowerShell script called "deploy-nginx.ps1" into the "deploy" folder.
+- Move into the root solution folder and run the PowerShell file to deploy NGINX ingress controller.
+  - Windows => ".\deploy\deploy-nginx.ps1"
+  - Mac/Linux => "pwsh ./deploy/deploy-nginx.ps1"
+- Next draft the "ingress-nginx.yaml" file in the "deploy" folder and specify access to our 2 services.
+- Apply this ingress controller yaml file too.
+  - Mac/Linux => kubectl apply -f ./deploy/ingress-nginx.yaml
+  - Windows => kubectl apply -f .\deploy\ingress-nginx.yaml
+- Find out the public IP of the ingress controller to access the services.
+  - kubectl get ingress
