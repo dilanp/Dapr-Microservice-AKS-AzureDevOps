@@ -144,3 +144,8 @@ Setup Dapr on K8s cluster
 - See the Dapr Dashboard on K8s.
   - dapr dashboard -k
 
+Dockerize the Apps
+==================
+- Right-click on OrdersApi project "Add > Docker Support" to add the Dockerfile (use Linux containers).
+- Right-click on InventoryApi project "Add > Docker Support" to add the Dockerfile (use Linux containers).
+- 
