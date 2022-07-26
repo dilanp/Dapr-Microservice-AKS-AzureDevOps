@@ -85,6 +85,7 @@ Azure Resources
 - Select newly created policy and get - Primary key and Connection string–primary key.
 - Create a Standard, LRS Storage Account - "daprbindingstoreacc01".
 - Select Access keys in newly created storage account and get - Key and Connection string for key 1.
+- Once the apps are Dockerized create a new Azure Container Registry (Standard) - "daprk8sscrff".
 
 Dapr Components for Azure
 =========================
@@ -151,3 +152,18 @@ Dockerize the Apps
 - Move to the root solution folder in PowerShell and run the following commands to create Docker images.
   - docker build . -t daprorderservice:latest -f OrdersApi/Dockerfile
   - docker build . -t daprinventoryservice:latest -f InventoryApi/Dockerfile
+- Make sure both images are created by running.
+  - docker images
+
+Push Images to ACR
+==================
+- Once the Azure Container Registry (ACR) is created get its URL. Then tag the both images with it.
+  - docker tag daprorderservice:latest daprk8sscrff.azurecr.io/daprorderservice:latest
+  - docker tag daprinventoryservice:latest daprk8sscrff.azurecr.io/daprinventoryservice:latest
+- Next login to the ACR.
+  - az acr login --name daprk8sscrff
+- Now push the images to ACR.
+  - docker push daprk8sscrff.azurecr.io/daprorderservice:latest
+  - docker push daprk8sscrff.azurecr.io/daprinventoryservice:latest
+- Make sure both images are available in Azure ACR Repository.
+
